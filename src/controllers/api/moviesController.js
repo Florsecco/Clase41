@@ -18,14 +18,17 @@ const moviesController = {
             res.send(err)
         }
     },
-    destroy: function (req,res) {
-        return res.send('destroy')
-        // let movieId = req.params.id;
-        // Movies
-        // .destroy({where: {id: movieId}, force: true}) // force: true es para asegurar que se ejecute la acción
-        // .then(()=>{
-        //     return res.redirect('/movies')})
-        // .catch(error => res.send(error)) 
+    destroy: async function (req,res) {
+        try{
+        let movieId = req.params.id;
+         await Movies.destroy({where: {id: movieId}, force: true}) 
+         return res.send('pelicula eliminada')
+         // force: true es para asegurar que se ejecute la acción
+        }
+        catch(err){
+            console.log(err);
+            res.send(err) 
+        }
     }
 }
 
