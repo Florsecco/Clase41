@@ -11,8 +11,8 @@ const Movies = db.Movie;
 const moviesController = {
     create: async function (req,res) {
         try{
-            await Movies.create(req.body)
-            return res.send("movie creada") 
+            const movie = await Movies.create(req.body)
+            return res.json(movie) 
         } catch (err) {
             console.log(err);
             res.send(err)
@@ -21,8 +21,9 @@ const moviesController = {
     destroy: async function (req,res) {
         try{
         let movieId = req.params.id;
-         await Movies.destroy({where: {id: movieId}, force: true}) 
-         return res.send('pelicula eliminada')
+        const movieDelete= await Movies.findByPk(movieId)
+        await Movies.destroy({where: {id: movieId}, force: true}) 
+        return res.json(movieDelete)
          // force: true es para asegurar que se ejecute la acción
         }
         catch(err){
