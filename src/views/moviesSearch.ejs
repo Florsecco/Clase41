@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Películas</title>
+    <title>Listado de Películas Buscadas</title>
     <link rel='stylesheet' href='/css/style.css' />
 
 </head>
@@ -13,21 +13,8 @@
     <figure>
         <img src="/img/logo-DH.png" alt="Logo Digital House">
     </figure>
-    <h1>LISTADO DE PELÍCULAS</h1>
-    <br>
-    <p>
-        <a class="botonAgregar" href="/movies/add">Agregar una Pelicula</a>
-        <a class="botonVolver" href="/">inicio</a>
-
-    </p>
-    <br>
-    <div class="buscar-titulo">
-        <form action="/movies/buscar" method="POST">
-            <input type="text" name="titulo" id="titulo">
-            <button class="boton-buscar" type="submit">Buscar una Pelicula</button>
-        </form>
-        
-    </div>
+    <h1>LISTADO DE PELÍCULAS BUSCADAS</h1>
+   
     <ul>
         <% for( let i = 0; i < movies.length; i++ ) { %>
         <li>

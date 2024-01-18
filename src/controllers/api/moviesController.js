@@ -9,6 +9,34 @@ const Movies = db.Movie;
 
 
 const moviesController = {
+    list: async(req, res) => {
+        try{
+            const movies = await db.Movie.findAll()
+            return res.status(200).json({
+                meta:{
+                    status: 200,
+                    total: movies.length,
+                    url: "api/movies"
+                },
+                data: movies                
+            })
+        } catch (err){
+            console.log(err)
+            res.send(err)
+        }
+    },
+    detail: async(req, res) => {
+        try{
+            const movie = await db.Movie.findByPk(req.params.id)
+            return res.status(200).json({
+                data: movie,
+                status: 200
+            })
+        } catch (err){
+            console.log(err)
+            res.send(err)
+        }
+    },
     create: async function (req,res) {
         try{
             const movie = await Movies.create(req.body)

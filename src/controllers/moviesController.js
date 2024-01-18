@@ -3,7 +3,9 @@ const db = require('../database/models');
 const sequelize = db.sequelize;
 const { Op } = require("sequelize");
 const moment = require('moment');
-
+const { log } = require('console');
+const fetch = require('node-fetch');
+const { response } = require('express');
 
 //Aqui tienen otra forma de llamar a cada uno de los modelos
 const Movies = db.Movie;
@@ -127,6 +129,29 @@ const moviesController = {
         .then(()=>{
             return res.redirect('/movies')})
         .catch(error => res.send(error)) 
+    },
+    'buscar': async(req, res) => {
+        try {
+            
+            let search = req.body.titulo
+            console.log(search);
+            const movies = await Movies.findAll({
+                where:{
+                    title:{ [Op.like]:`%${search}%` }
+                }
+            })
+            if(movies.length!=0){
+            return res.render('moviesSearch', {movies})}
+            else{
+                
+            }
+        } catch (error) {
+            res.send(error)
+        }
+    },
+    listar: async(req,res)=>{
+        const api = await fetch('https://apis.datos.gob.ar/georef/api/provincias?nombre=Sgo.%20del%20Estero').then(response=>response.json())
+        res.json(api)
     }
 }
 

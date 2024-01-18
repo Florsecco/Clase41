@@ -1,18 +1,24 @@
+
 const db = require('../../database/models');
 const sequelize = db.sequelize;
 
 
-const genresController = {
+//Aqui tienen otra forma de llamar a cada uno de los modelos
+const Actors = db.Actor;
+
+
+
+const actorsController = {
     list: async(req, res) => {
         try{
-            const genres = await db.Genre.findAll()
+            const actors = await Actors.findAll()
             return res.status(200).json({
                 meta:{
                     status: 200,
-                    total: genres.length,
-                    url: "api/genres"
+                    total: actors.length,
+                    url: "api/actors"
                 },
-                data: genres                
+                data: actors                
             })
         } catch (err){
             console.log(err)
@@ -21,9 +27,9 @@ const genresController = {
     },
     detail: async(req, res) => {
         try{
-            const genre = await db.Genre.findByPk(req.params.id)
+            const actor = await Actors.findByPk(req.params.id)
             return res.status(200).json({
-                data: genre,
+                data: actor,
                 status: 200
             })
         } catch (err){
@@ -33,8 +39,8 @@ const genresController = {
     },
     create: async function (req,res) {
         try{
-            const genre = await db.Genre.create(req.body)
-            return res.json(genre) 
+            const actor = await Actors.create(req.body)
+            return res.json(actor) 
         } catch (err) {
             console.log(err);
             res.send(err)
@@ -42,11 +48,11 @@ const genresController = {
     },
     destroy: async function (req,res) {
         try{
-        let genreId = req.params.id;
-        const genreDelete= await db.Genre.findByPk(genreId)
-        if(genreDelete){
-        await genreDelete.destroy();
-        return res.json(genreDelete)
+        let actorId = req.params.id;
+        const actorDelete= await Actors.findByPk(actorId)
+        if(actorDelete){
+        await actorDelete.destroy();
+        return res.json(actorDelete)
         }
          // force: true es para asegurar que se ejecute la acción
         }
@@ -55,7 +61,6 @@ const genresController = {
             res.send(err) 
         }
     }
-    
 }
 
-module.exports = genresController;
+module.exports = actorsController
