@@ -143,15 +143,18 @@ const moviesController = {
             if(movies.length!=0){
             return res.render('moviesSearch', {movies})}
             else{
-                
+            let query= search.replaceAll(' ','+')
+            console.log("query",query);
+            const moviesApi = await fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=b282d108&t=${query}`).then(response=>response.json())
+            console.log(moviesApi.Title);
+            return res.render('moviesSearch', { movies: moviesApi.Title}) 
             }
         } catch (error) {
             res.send(error)
         }
     },
-    listar: async(req,res)=>{
-        const api = await fetch('https://apis.datos.gob.ar/georef/api/provincias?nombre=Sgo.%20del%20Estero').then(response=>response.json())
-        res.json(api)
+    listar: (req,res)=>{
+        return res.send('llegue')
     }
 }
 

@@ -16,12 +16,18 @@
     <h1>LISTADO DE PELÍCULAS BUSCADAS</h1>
    
     <ul>
-        <% for( let i = 0; i < movies.length; i++ ) { %>
-        <li>
-            <a href="/movies/detail/<%= movies[i].id %>"><%= movies[i].title %></a>
-        </li>
-        <% } %>
-
+        <% if (Array.isArray(movies)) { %>
+            <% for( let i = 0; i < movies.length; i++ ) { %>
+            <li>
+                <a href="/movies/detail/<%= movies[i].id %>"><%= movies[i].title %></a>
+            </li>
+            <% } %>
+         
+        <% }else{ %>
+            <li>
+                <%= movies %>
+            </li>
+            <% } %>
     </ul>
 </body>
 
